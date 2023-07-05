@@ -73,16 +73,20 @@ SCENARIO variable is treated as a string, adding any text containing the substri
 
 1. You can download the latest software at download.appdynamics.com and place the binaries of the enterprise console (optional components) in the 'APPD_INSTALL_DIR' (host directory for docker) or in the same directory as the 'firstrun.sh' script file. Otherwise, the script will download it for you if you have given your AppDynamics Community credentials in the 'your-platform.env' file which will be placed in '/opt/appdynamics'.
 2. You can place your 'license.lic' file in '/opt/appdynamics' or directory of 'firstrun.sh' before install and it will activate on initial build or upon startup of container. This is handy for updating your license file periodically.
-3. DOCKER USERS - If you are running on anything other than Unraid OS you can open a console to your container via
+3. Configure User Limits in Linux. AppDynamics requires the following hard and soft per-user limits in Linux: 
+Open file descriptor limit (nofile): 65535
+Process limit (nproc): 8192
+https://docs.appdynamics.com/appd/20.x/en/appdynamics-application-performance-monitoring-platform/planning-your-deployment/physical-machine-controller-deployment-guide/prepare-the-controller-host/prepare-linux-for-the-controller
+5. DOCKER USERS - If you are running on anything other than Unraid OS you can open a console to your container via
 
    ```bash
    docker exec -i -t appdynamics-server-all-in-one /bin/bash
    ```
 
    * Unraid users - simply click the container in your web ui and select ">_ console"
-4. AppDynamics Software will be installed in </opt/appdynamics>/appdynamics directory (DOCKER) or /opt/appdynamics for Standalone (to change this please see below section 'Your Platform Configuration'. This allows you to view/modify contents easily from your host. You can also delete and recreate the container while data persists.
-5. If your installation goes sour, backup your license file, delete the folder </opt/appdynamics>/appdynamics and restart the container.
-6. DOCKER USERS - You can monitor the the logs of your container by issuing the following command
+6. AppDynamics Software will be installed in </opt/appdynamics>/appdynamics directory (DOCKER) or /opt/appdynamics for Standalone (to change this please see below section 'Your Platform Configuration'. This allows you to view/modify contents easily from your host. You can also delete and recreate the container while data persists.
+7. If your installation goes sour, backup your license file, delete the folder </opt/appdynamics>/appdynamics and restart the container.
+8. DOCKER USERS - You can monitor the the logs of your container by issuing the following command
 
  ```bash
  docker logs -f container-name
